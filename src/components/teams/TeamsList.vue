@@ -1,4 +1,5 @@
 <template>
+  <button @click="confirmList">Confirm</button>
   <ul>
     <teams-item
       v-for="team in teams"
@@ -14,9 +15,16 @@ import TeamsItem from './TeamsItem.vue';
 
 export default {
   components: {
-    TeamsItem,
+    TeamsItem
   },
   inject: ['teams'],
+  methods: {
+    confirmList() {
+      this.$router.push('/users');
+      // this.$router.forward()
+      // this.$router.back()
+    }
+  }
 };
 </script>
 
