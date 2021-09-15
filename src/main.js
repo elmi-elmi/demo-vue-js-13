@@ -7,11 +7,11 @@ import TeamsList from './components/teams/TeamsList.vue';
 const router = createRouter({
     history: createWebHistory(),
     routes: [{
-        path: '/user',
+        path: '/users',
         component: UsersList
     },
     {
-        path: '/team',
+        path: '/teams',
         component: TeamsList
     }]
 });
