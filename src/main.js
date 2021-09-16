@@ -5,14 +5,16 @@ import App from './App.vue';
 import UsersList from './components/users/UsersList.vue';
 import TeamsList from './components/teams/TeamsList.vue';
 import TeamMembers from './components/teams/TeamMembers.vue';
-import NotFound from './components/nav/NotFound.vue'
+import NotFound from './components/nav/NotFound.vue';
+import FooterTeam from './components/teams/FooterTeams.vue';
+import FooterUser from './components/users/FooterUser.vue';
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', redirect: '/teams' },
-        { path: '/users', component: UsersList },
+        { path: '/users', components: { default: UsersList, footer: FooterUser } },
         {
-            path: '/teams', component: TeamsList, children: [
+            path: '/teams', components: { default: TeamsList, footer: FooterTeam }, children: [
                 { name: 'team-members', path: ':teamId', component: TeamMembers, props: true },
 
             ]
@@ -21,7 +23,14 @@ const router = createRouter({
         { path: '/:notFound(.*)', component: NotFound }
         // { path: '/:notFound(.*)', redirect: '/teams' }
     ],
-    linkActiveClass: 'active'
+    linkActiveClass: 'active',
+    scrollBehavior(from, to, savePosition) {
+        console.log(from, to, savePosition)
+        if (savePosition) {
+            return savePosition
+        }
+        return { left: 0, top: 0 }
+    },
 });
 const app = createApp(App)
 app.use(router)
