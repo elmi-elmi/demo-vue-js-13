@@ -1,6 +1,12 @@
 <template>
+  <button @click="saveChanges">save change</button>
   <ul>
-    <user-item v-for="user in users" :key="user.id" :name="user.fullName" :role="user.role"></user-item>
+    <user-item
+      v-for="user in users"
+      :key="user.id"
+      :name="user.fullName"
+      :role="user.role"
+    ></user-item>
   </ul>
 </template>
 
@@ -9,9 +15,30 @@ import UserItem from './UserItem.vue';
 
 export default {
   components: {
-    UserItem,
+    UserItem
   },
   inject: ['users'],
+  data() {
+    return { changesSave: false };
+  },
+  methods: {
+    saveChanges() {
+      this.changesSave = true;
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log('++++++++++++++');
+    console.log(to, from);
+    if (this.changesSave) {
+      next();
+    } else {
+      const acc = confirm('please fuck your self');
+      next(acc);
+    }
+  },
+  unmounted() {
+    console.log('^^^^^^^^^^^^');
+  }
 };
 </script>
 

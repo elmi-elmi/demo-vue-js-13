@@ -37,6 +37,9 @@ const router = createRouter({
 //     console.log('to', to)
 //     next()
 // })
+router.afterEach(function () {
+
+});
 const app = createApp(App)
 app.use(router)
 
