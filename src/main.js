@@ -12,9 +12,18 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', redirect: '/teams' },
-        { path: '/users', components: { default: UsersList, footer: FooterUser } },
         {
-            path: '/teams', components: { default: TeamsList, footer: FooterTeam }, children: [
+            path: '/users',
+            components: { default: UsersList, footer: FooterUser }
+        },
+        {
+            path: '/teams',
+            meta: { authNeed: true },
+            components: {
+                default: TeamsList,
+                footer: FooterTeam
+            },
+            children: [
                 { name: 'team-members', path: ':teamId', component: TeamMembers, props: true },
 
             ]
@@ -32,11 +41,17 @@ const router = createRouter({
         return { left: 0, top: 0 }
     },
 });
-// router.beforeEach(function (to, from, next) {
-//     console.log('from:', from)
-//     console.log('to', to)
-//     next()
-// })
+router.beforeEach(function (to, from, next) {
+    console.log('from:', from)
+    console.log('to', to)
+    if (to.meta.authNeed) {
+        console.log('neeeeeeeeeeeeeed')
+        next
+    } else {
+
+        next()
+    }
+})
 router.afterEach(function () {
 
 });
