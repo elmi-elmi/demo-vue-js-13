@@ -24,14 +24,19 @@ const router = createRouter({
         // { path: '/:notFound(.*)', redirect: '/teams' }
     ],
     linkActiveClass: 'active',
-    scrollBehavior(from, to, savePosition) {
-        console.log(from, to, savePosition)
+    scrollBehavior(_, _2, savePosition) {
+        // console.log(from, to, savePosition)
         if (savePosition) {
             return savePosition
         }
         return { left: 0, top: 0 }
     },
 });
+// router.beforeEach(function (to, from, next) {
+//     console.log('from:', from)
+//     console.log('to', to)
+//     next()
+// })
 const app = createApp(App)
 app.use(router)
 
